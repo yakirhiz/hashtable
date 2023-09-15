@@ -3,6 +3,7 @@ public abstract class OAHashTable implements IHashTable {
 	private HashTableElement[] table;
 	private int numOfElements;
 	private int[] deletedArray;
+	protected int m; // Size of the table
 
 	public OAHashTable(int m) {
 		this.table = new HashTableElement[m];
@@ -10,6 +11,7 @@ public abstract class OAHashTable implements IHashTable {
 		deletedArray = new int[table.length]; // array indicating whether the element has been delete
 		// Notice: We are not actually deleting the item from the table, we will know
 		// whether the item has been deleted only through the deletedArray.
+		this.m = m;
 	}
 
 	@Override

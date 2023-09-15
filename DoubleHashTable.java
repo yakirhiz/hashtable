@@ -2,13 +2,11 @@
 
 public class DoubleHashTable extends OAHashTable {
 
-	int m; // Size of the table
 	ModHash h1;
 	ModHash h2;
 
 	public DoubleHashTable(int m, long p) {
 		super(m);
-		this.m = m;
 
 		/* Generating two hash functions */
 		this.h1 = ModHash.GetFunc(m, p);

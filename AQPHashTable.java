@@ -2,12 +2,10 @@
 
 public class AQPHashTable extends OAHashTable {
 
-	int m; // Size of the table
 	ModHash h;
 
 	public AQPHashTable(int m, long p) {
 		super(m);
-		this.m = m;
 		this.h = ModHash.GetFunc(m, p); // Generating random hash function
 	}
 
