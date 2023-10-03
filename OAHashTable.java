@@ -32,8 +32,6 @@ public abstract class OAHashTable implements IHashTable {
 
 	@Override
 	public void Insert(HashTableElement hte) throws TableIsFullException, KeyAlreadyExistsException {
-		boolean flag = false;
-
 		if (Find(hte.GetKey()) != null) {
 			throw new KeyAlreadyExistsException(hte);
 		}
@@ -46,12 +44,9 @@ public abstract class OAHashTable implements IHashTable {
 				table[Hash(hte.GetKey(), i)] = hte;
 				deletedArray[currHash] = false;
 				numOfElements++;
-				flag = true;
-				break;
+				return;
 			}
 		}
-		if (flag == false)
-			throw new TableIsFullException(hte);
 	}
 
 	@Override
@@ -66,7 +61,7 @@ public abstract class OAHashTable implements IHashTable {
 				if ((currKey == key) && (deletedArray[currHash] == false)) {
 					deletedArray[currHash] = true;
 					numOfElements--;
-					break;
+					return;
 				}
 			}
 		}
