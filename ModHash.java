@@ -13,13 +13,13 @@ public class ModHash {
 	}
 
 	public static ModHash GetFunc(int m, long p) {
-		long a = ThreadLocalRandom.current().nextLong(p - 1) + 1; // Choose uniformly number between 1 to p-1
-		long b = ThreadLocalRandom.current().nextLong(p); // Choose uniformly number between 0 to p-1
+		long a = ThreadLocalRandom.current().nextLong(1, p); // Choose uniformly long between 1 to p-1
+		long b = ThreadLocalRandom.current().nextLong(0, p); // Choose uniformly long between 0 to p-1
 
 		return new ModHash(a, b, m, p);
 	}
 
 	public int Hash(long key) {
-		return (int) Math.floorMod(Math.floorMod(a * key + b, p), m);
+		return Math.floorMod(Math.floorMod(a * key + b, p), m);
 	}
 }

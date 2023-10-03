@@ -1,12 +1,11 @@
 
-
 public class AQPHashTable extends OAHashTable {
 
 	ModHash h;
 
 	public AQPHashTable(int m, long p) {
 		super(m);
-		this.h = ModHash.GetFunc(m, p); // Generating random hash function
+		this.h = ModHash.GetFunc(m, p); // Generating a random hash function
 	}
 
 	@Override
@@ -14,6 +13,6 @@ public class AQPHashTable extends OAHashTable {
 		if (i % 2 == 0)
 			return Math.floorMod(h.Hash(x) + i * i, m);
 		else
-			return Math.floorMod(h.Hash(x) + -1 * i * i, m);
+			return Math.floorMod(h.Hash(x) - i * i, m);
 	}
 }

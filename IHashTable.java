@@ -27,7 +27,7 @@ public interface IHashTable {
 		public HashTableElement hte;
 		
 		public TableIsFullException(HashTableElement hte) {	
-			this.hte=hte;
+			this.hte = hte;
 		}
 	}
 	
@@ -35,7 +35,7 @@ public interface IHashTable {
 		public HashTableElement hte;
 		
 		public KeyAlreadyExistsException(HashTableElement hte) {
-			this.hte=hte;
+			this.hte = hte;
 		}
 	}
 	
@@ -43,7 +43,7 @@ public interface IHashTable {
 		public long key;
 		
 		public KeyDoesntExistException(long key) {
-			this.key=key;
+			this.key = key;
 		}
 	}
 }
