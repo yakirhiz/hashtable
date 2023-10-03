@@ -2,13 +2,13 @@ public abstract class OAHashTable implements IHashTable {
 
 	private HashTableElement[] table;
 	private int numOfElements;
-	private int[] deletedArray;
+	private boolean[] deletedArray;
 	protected int m; // Size of the table
 
 	public OAHashTable(int m) {
 		this.table = new HashTableElement[m];
 		this.numOfElements = 0;
-		deletedArray = new int[table.length]; // array indicating whether the element has been delete
+		deletedArray = new boolean[table.length]; // array indicating whether the element has been delete
 		// Notice: We are not actually deleting the item from the table, we will know
 		// whether the item has been deleted only through the deletedArray.
 		this.m = m;
@@ -23,7 +23,7 @@ public abstract class OAHashTable implements IHashTable {
 				return null;
 			}
 			long currKey = currEle.GetKey();
-			if ((currKey == key) && (deletedArray[currHash] != 1)) {
+			if ((currKey == key) && (deletedArray[currHash] == false)) {
 				return currEle;
 			}
 		}
@@ -42,9 +42,9 @@ public abstract class OAHashTable implements IHashTable {
 		}
 		for (int i = 0; i < this.table.length; i++) {
 			int currHash = Hash(hte.GetKey(), i);
-			if (table[currHash] == null || deletedArray[currHash] == 1) {
+			if (table[currHash] == null || deletedArray[currHash] == true) {
 				table[Hash(hte.GetKey(), i)] = hte;
-				deletedArray[currHash] = 0;
+				deletedArray[currHash] = false;
 				numOfElements++;
 				flag = true;
 				break;
@@ -63,8 +63,8 @@ public abstract class OAHashTable implements IHashTable {
 				int currHash = Hash(key, i);
 				HashTableElement currEle = table[currHash];
 				long currKey = currEle.GetKey();
-				if ((currKey == key) && (deletedArray[currHash] != 1)) {
-					deletedArray[currHash] = 1;
+				if ((currKey == key) && (deletedArray[currHash] == false)) {
+					deletedArray[currHash] = true;
 					numOfElements--;
 					break;
 				}
