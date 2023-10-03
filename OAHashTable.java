@@ -2,13 +2,13 @@ public abstract class OAHashTable implements IHashTable {
 
 	private HashTableElement[] table;
 	private int numOfElements;
-	private boolean[] deletedArray;
+	private boolean[] deletedArray; // Array of indicators for deleted elements
 	protected int m; // Size of the table
 
 	public OAHashTable(int m) {
 		this.table = new HashTableElement[m];
 		this.numOfElements = 0;
-		deletedArray = new boolean[table.length]; // array indicating whether the element has been delete
+		deletedArray = new boolean[table.length];
 		// Notice: We are not actually deleting the item from the table, we will know
 		// whether the item has been deleted only through the deletedArray.
 		this.m = m;
@@ -23,7 +23,7 @@ public abstract class OAHashTable implements IHashTable {
 				return null;
 			}
 			long currKey = currEle.GetKey();
-			if ((currKey == key) && (deletedArray[currHash] == false)) {
+			if (currKey == key && deletedArray[currHash] == false) {
 				return currEle;
 			}
 		}
@@ -41,7 +41,7 @@ public abstract class OAHashTable implements IHashTable {
 		for (int i = 0; i < this.table.length; i++) {
 			int currHash = Hash(hte.GetKey(), i);
 			if (table[currHash] == null || deletedArray[currHash] == true) {
-				table[Hash(hte.GetKey(), i)] = hte;
+				table[currHash] = hte;
 				deletedArray[currHash] = false;
 				numOfElements++;
 				return;
@@ -53,16 +53,15 @@ public abstract class OAHashTable implements IHashTable {
 	public void Delete(long key) throws KeyDoesntExistException {
 		if (Find(key) == null) {
 			throw new KeyDoesntExistException(key);
-		} else {
-			for (int i = 0; i < this.table.length; i++) {
-				int currHash = Hash(key, i);
-				HashTableElement currEle = table[currHash];
-				long currKey = currEle.GetKey();
-				if ((currKey == key) && (deletedArray[currHash] == false)) {
-					deletedArray[currHash] = true;
-					numOfElements--;
-					return;
-				}
+		}
+		for (int i = 0; i < this.table.length; i++) {
+			int currHash = Hash(key, i);
+			HashTableElement currEle = table[currHash];
+			long currKey = currEle.GetKey();
+			if (currKey == key && deletedArray[currHash] == false) {
+				deletedArray[currHash] = true;
+				numOfElements--;
+				return;
 			}
 		}
 	}
