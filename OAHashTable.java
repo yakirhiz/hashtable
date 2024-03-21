@@ -1,3 +1,4 @@
+
 public abstract class OAHashTable implements IHashTable {
 
 	private HashTableElement[] table;
@@ -18,13 +19,12 @@ public abstract class OAHashTable implements IHashTable {
 	public HashTableElement Find(long key) {
 		for (int i = 0; i < this.table.length; i++) {
 			int currHash = Hash(key, i);
-			HashTableElement currEle = table[currHash];
-			if (currEle == null) {
+			HashTableElement e = table[currHash];
+			if (e == null) {
 				return null;
 			}
-			long currKey = currEle.GetKey();
-			if (currKey == key && deletedArray[currHash] == false) {
-				return currEle;
+			if (e.GetKey() == key && deletedArray[currHash] == false) {
+				return e;
 			}
 		}
 		return null;
@@ -56,9 +56,8 @@ public abstract class OAHashTable implements IHashTable {
 		}
 		for (int i = 0; i < this.table.length; i++) {
 			int currHash = Hash(key, i);
-			HashTableElement currEle = table[currHash];
-			long currKey = currEle.GetKey();
-			if (currKey == key && deletedArray[currHash] == false) {
+			HashTableElement e = table[currHash];
+			if (e.GetKey() == key && deletedArray[currHash] == false) {
 				deletedArray[currHash] = true;
 				numOfElements--;
 				return;
