@@ -1,9 +1,9 @@
 
 public abstract class OAHashTable implements IHashTable {
 
-	private HashTableElement[] table;
-	private int numOfElements;
-	private boolean[] deletedArray; // Array of indicators for deleted elements
+	protected HashTableElement[] table;
+	protected int numOfElements;
+	protected boolean[] deletedArray; // Array of indicators for deleted elements
 	protected int m; // Size of the table
 
 	public OAHashTable(int m) {
