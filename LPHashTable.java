@@ -52,8 +52,8 @@ public class LPHashTable extends OAHashTable {
 			HashTableElement e = table[currHash];
 			if (e.GetKey() == key) {
 				table[currHash] = null;
-				Shift(currHash);
 				numOfElements--;
+				Shift(currHash);
 				return;
 			}
 		}
@@ -67,7 +67,7 @@ public class LPHashTable extends OAHashTable {
 			if (InInterval(deletedIndex, candidateIndex, s) == false) {
 				table[deletedIndex] = table[(deletedIndex + s) % m]; // Fill in the "hole"
 				table[(deletedIndex + s) % m] = null;                // Move the "hole"
-                deletedIndex = (deletedIndex + s) % m;               // New "hole" index
+				deletedIndex = (deletedIndex + s) % m;               // New "hole" index
 				s = 1;
 			} else {
 				s++;
@@ -77,7 +77,7 @@ public class LPHashTable extends OAHashTable {
 
 	// Check if candidateIndex is in (deletedIndex, deletedIndex + shift]
 	public boolean InInterval(int deletedIndex, long candidateIndex, int shift) {
-		if (deletedIndex == candidateIndex)
+		if (candidateIndex == deletedIndex)
 			return false;
 		return (candidateIndex + m - deletedIndex) % m <= shift; // Always non-negative
 	}
